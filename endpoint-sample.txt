@@ -1,0 +1,91 @@
+API - what we are planning to improve by rebuilding it with same DB structure but will rename tables as per conventions for ease of maintainability
+1. Queries and since seperation of Batch and UI will reduce the code a lot we'll improve queries and reusability
+2. Get rid of unnecesary codes to ease of maintainability
+3. seperation of concerns by introducing AOP (transaction and logging )
+4.In cureent Architecture though we are using REST but approach is of SOAP
+
+like /users/{userid}/roles/{roleid}/taxonomies like structure not defined heavily relied on DB Views
+The UI we can make in React / Angular
+The batch job we'll make on Spring Batch (As this is the best option available)
+THE API we can make in either Node.js or Spring boot
+
+Microservices Approach
+
+1.Authentication Service
+
+2. Users service
+
+. Roles service
+
+3. Taxonomies service (usertaxonomies, roletaxonomies, openpositiontaxonomies
+
+Auditlogs service
+
+Reporting Service
+
+
+
+Endpoints:
+/users/
+/users/{userid}
+/users/{userid}/userstaxonomies/
+/users/{userid}/userstaxonomies/{taxonomytypeid}/taxonomies
+/users/{userid}/userstaxonomies/{taxonomytypeid}/taxonomies/{mappingtaxonomytypeid}
+/users/{userid}/usersroles/
+/users/{userid}/usersroles/{roleid}/roles
+/users/{userid}/usersroles/{roleid}/roles/{roleid}/rolestaxonomies
+/users/{userid}/usersroles/{roleid}/roles/{roleid}/rolestaxonomies/{taxonomytypeid}/taxonomies
+/users/{userid}/openpositions/
+/users/{userid}/openpositions/{openpositionid}
+/users/{userid}/openpositions/{openpositionid}/openpositionstaxonomies
+/users/{userid}/openpositions/{openpositionid}/openpositionstaxonomies/{taxonomytypeid}/taxonomies
+/users/{userid}/openpositions/{openpositionid}/openpositionsroles
+/users/{userid}/openpositions/{openpositionid}/openpositionsroles/{roleid}/roles
+/users/{userid}/openpositions/{openpositionid}/openpositionsroles/{roleid}/roles/{roleid}/rolestaxonomies
+/users/{userid}/openpositions/{openpositionid}/openpositionsroles/{roleid}/roles/{roleid}/rolestaxonomies/{taxonomytypeid}/taxonomies
+
+
+USERS 
+-> CITIES
+-> COUNTRIES
+		-> COUNTRIES_TAXONOMIES
+				-> TAXONOMIES
+-> USERS_TAXONOMIES
+		-> TAXONOMIES
+-> USERS_ROLES
+		-> ROLES
+				-> ROLES_TAXONOMIES
+						-> TAXONOMIES
+-> OPENPOSITIONS 
+		-> OPENPOSITIONS_TAXONOMIES
+				-> TAXONOMIES
+		-> OPENPOSITIONS_ROLES
+				-> ROLES
+						-> ROLES_TAXONOMIES
+								-> TAXONOMIES
+-> USERS_REPORTINGS (it contains only ids kind of Self join with USER table as all the reporting managers data are in USERS table itself)
+-> USERS_APPLICATIONROLES
+-> USERS_OPERATIONS
+-> USERS_ACCESSCONTROLS
+
+/taxonomytypes
+taxonomytypes/taxonomytypeid}/taxonomies/
+/taxonomytypes/{taxonomytypeid}/taxonomies/{mappingtaxonomytypeid} if we are not creating taxonomy mapping table rather adding one more column to taxonomies table to map 
+( these end point will be used if taxonomy mappings table used)
+/taxonomytypes/{taxonomytypeid2}/taxonomies/{taxonomytypeid1}/taxonomymappings/ 
+/taxonomymappings
+TAXONOMY_TYPES
+	-> TAXONOMIES
+			-> TAXONOMIES_MAPPINGS (Optional) Like STATUS-STATUS_DETAILS
+			
+			
+			
+/auditlogs
+AUDITLOGS
+
+
+/reports
+AUDIT_HISTORY
+
+
+
